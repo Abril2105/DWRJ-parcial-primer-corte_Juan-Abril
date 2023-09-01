@@ -80,15 +80,15 @@ class RickAndMortyService {
     // valor (1 punto)
 	async getAllCharacters() {
         try {
-            const response = await fetch(this.baseUrl); // Hacer la solicitud al API
+            const response = await fetch(this.baseUrl);
             if (!response.ok) {
-                // Verificar si la respuesta no es exitosa
+                
                 throw new Error(`Error al obtener los personajes. Código de estado: ${response.status}`);
             }
-            const data = await response.json(); // Convertir la respuesta a JSON
-            const characters = data.results; // Obtener la lista de personajes
+            const data = await response.json(); 
+            const characters = data.results;
 
-            // Aquí puedes realizar la lógica para transformar los datos según el formato deseado
+           
             const formattedCharacters = characters.map(character => {
                 return {
                     name: character.name,
@@ -102,10 +102,10 @@ class RickAndMortyService {
                 };
             });
 
-            return formattedCharacters; // Devolver los personajes formateados
+            return formattedCharacters; 
         } catch (error) {
             console.error(`Error al obtener los personajes: ${error.message}`);
-            throw error; // Lanzar el error para manejarlo más arriba si es necesario
+            throw error; 
         }
     }
         // aqui va tu llamado al API usando fetch puedes usar promesas o asycn/await

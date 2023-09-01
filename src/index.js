@@ -3,7 +3,6 @@ import RickAndMortyService from './service';
 // Crear una instancia del servicio RickAndMortyService
 const service = new RickAndMortyService();
 
-// Función para crear la estructura HTML de un personaje en una tarjeta
 function createCharacterCard(character) {
     return `
     <div class="character">
@@ -23,7 +22,6 @@ function createCharacterCard(character) {
     `;
 }
 
-// Función para agregar un evento de clic a una tarjeta de personaje
 function addCharacterListeners(character, container) {
     const characterCard = container.querySelector(`.image[alt="${character.name}"]`);
 
@@ -33,16 +31,15 @@ function addCharacterListeners(character, container) {
     });
 }
 
-// Función para crear la lista de personajes y agregarlos al contenedor correspondiente
 async function createCharacterList() {
     try {
         const characters = await service.getAllCharacters();
         const characterContainer = document.querySelector('.character-list');
 
-        // Limpiar el contenido del contenedor antes de agregar nuevos personajes
+        
         characterContainer.innerHTML = '';
 
-        // Iterar a través de los personajes y crear tarjetas para cada uno
+        
         characters.forEach(character => {
             const characterCardHTML = createCharacterCard(character);
             characterContainer.innerHTML += characterCardHTML;
