@@ -42,7 +42,9 @@
 class RickAndMortyService {
     // el constructor debe inicializar una variable con la url de acceso base al API
 
-	constructor() {}
+	constructor() {
+        this.baseUrl = "https://rickandmortyapi.com/api/character";
+    }
 
     
     // este método deberá llamar al servicio y obtener los personajes
@@ -76,9 +78,38 @@ class RickAndMortyService {
     //  const mispersonajes = await response.json();
 
     // valor (1 punto)
-	getAllCharacters() {
+	async getAllCharacters() {
+        try {
+            const response = await fetch(this.baseUrl); // Hacer la solicitud al API
+            if (!response.ok) {
+                // Verificar si la respuesta no es exitosa
+                throw new Error(`Error al obtener los personajes. Código de estado: ${response.status}`);
+            }
+            const data = await response.json(); // Convertir la respuesta a JSON
+            const characters = data.results; // Obtener la lista de personajes
+
+            // Aquí puedes realizar la lógica para transformar los datos según el formato deseado
+            const formattedCharacters = characters.map(character => {
+                return {
+                    name: character.name,
+                    status: character.status,
+                    species: character.species,
+                    firstSeen: character.origin.name,
+                    location: character.location.name,
+                    image: character.image,
+                    student: "Juan David Abril", // Reemplaza con el nombre del estudiante
+                    code: "274308", // Reemplaza con el código del estudiante
+                };
+            });
+
+            return formattedCharacters; // Devolver los personajes formateados
+        } catch (error) {
+            console.error(`Error al obtener los personajes: ${error.message}`);
+            throw error; // Lanzar el error para manejarlo más arriba si es necesario
+        }
+    }
         // aqui va tu llamado al API usando fetch puedes usar promesas o asycn/await
 	}
-}
+
 
 export default RickAndMortyService;
